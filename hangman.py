@@ -1,63 +1,72 @@
 import random
 import json
 
-control = 0 #Soul Reducing Controller
-soul = 9
-restart = "Y"
-word_list_2 = []
-with open('wordlist.json') as f:
-    word_list_1 = json.load(f)["words"]
+def load_words_from_json(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return data['words']
 
-while True:
-    if (restart == "y" or restart == "Y"):
-        word = word_list_1[random.randint(0,67)] #(0, 67] random number
-        for element in word:
-            word_list_2.append(element)
-        global_list = ["-","-","-","-","-","-","-","-","-"]
-        name = input("Name : ")
-        print(f"Hello {name} time to play hangman!")
+def choose_word(word_list):
+    return random.choice(word_list)
 
+def display_word(word, guessed_letters):
+    display = ''
+    for letter in word:
+        if letter in guessed_letters:
+            display += letter
+        else:
+            display += '-'
+    return display
 
-        while True:
-            choice = input("You wanna guess the word?(Y/n) ")
-            if (choice == "Y"): #If you guess the word
-                guess = input("Your Prediction(Word) : ")
-                if (guess == word): #If your guess is equal the word
-                    control = 1
-                    guess_list = []
-                    for event in guess:
-                        guess_list.append(event)
+def main():
+    word_list = load_words_from_json('wordlist.json')
+    word = choose_word(word_list)
+    print(word)
+    guessed_letters = []
+    incorrect_guesses = 0
+    max_attempts = 6
 
-                    for i in range(9):
-                        if (word_list_2[i] == guess_list[i]):
-                            global_list[i] = word_list_2[i]
-                        print(f"{global_list[i]}\n")
+    print("Welcome to Hangman!")
+    name = input("What's your name handsome/beauty? : ")
+    print("What a nice name. Nice to meet you :)")
+    print("Try to guess the word {}.".format(name))
 
-                    print(f"Congratulations! You find the secret word! The word is {word}")
+    while True:
+        print("\nWord:", display_word(word, guessed_letters))
+        guess = input("Enter a letter: ").lower()
+
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please enter a single letter.")
+            continue
+
+        if guess in guessed_letters:
+            print("You've already guessed that letter.")
+            continue
+
+        guessed_letters.append(guess)
+
+        if guess in word:
+            print("Correct!")
+            prdc = input("You wanna guess the word? (Y/N)")
+            if (prdc == "Y" or prdc == "y"):
+                shot = input("C'mon, guess what's the word? : ")
+                if shot == word:
+                    print("Congrats {}. You guessed the word correctly. The word is {}".format(name, word))
                     break
-                else:
-                    soul -= 1
-                    print(f"The soul that left behind : {soul}")
+                else :
+                    print("You guessed wrong. Keep trying.")
+        else:
+            print("Incorrect!")
+            incorrect_guesses += 1
 
-            elif (choice == "n"): #If you guess the letter
-                prdctn = input("Your Prediction(Letter) : ")
-                for i in range(9): #Control every letter
-                    if (word_list_2[i] == prdctn): #If your letter guess is equal the letter
-                        control += 1
-                        global_list[i] = prdctn
-                    print(f"{global_list[i]}\n")
+        if set(word) <= set(guessed_letters):
+            print("Congrats {}. You guessed the word correctly. The word is {}".format(name, word))
+            break
 
-                if (control == 0): #If there is not any correct letter
-                   soul -= 1
-                   print(f"The soul that left behind : {soul}")
-                else: #If there is at least 1 correct letter
-                    print(f"The soul that left behind : {soul}")
+        print("Attempts left:", max_attempts - incorrect_guesses)
+        if incorrect_guesses >= max_attempts:
+            print("Sorry {}! You ran out of attempts! The word was {}", format(name, word)
+            break
 
-                control = 0
-            if (soul <= 0):
-                print(f"You Lose! I'm sorry! The word is {word}\nMaybe next time?")
-                break
-        restart = input("You wanna try again? Y/N")
-    else:
-        print("Have nice day :)")
-        break
+if __name__ == "__main__":
+    main()
