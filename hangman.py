@@ -65,7 +65,7 @@ def main():
 
         print("Attempts left:", max_attempts - incorrect_guesses)
         if incorrect_guesses >= max_attempts:
-            print("Sorry {}! You ran out of attempts! The word was {}", format(name, word)
+            print("Sorry {}! You ran out of attempts! The word was {}".format(name, word))
             break
 
 if __name__ == "__main__":
