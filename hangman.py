@@ -48,7 +48,7 @@ def main():
         if guess in word:
             print("Correct!")
             prdc = input("You wanna guess the word? (Y/N)")
-            if (prdc == "Y" or prdc == "y"):
+            if prdc == "Y" or prdc == "y":
                 shot = input("C'mon, guess what's the word? : ")
                 if shot == word:
                     print("Congrats {}. You guessed the word correctly. The word is {}".format(name, word))
@@ -67,6 +67,7 @@ def main():
         if incorrect_guesses >= max_attempts:
             print("Sorry {}! You ran out of attempts! The word was {}".format(name, word))
             break
+
 
 if __name__ == "__main__":
     main()
