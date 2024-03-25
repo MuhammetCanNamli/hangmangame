@@ -1,15 +1,12 @@
 import random
+import json
 
 control = 0 #Soul Reducing Controller
 soul = 9
 restart = "Y"
 word_list_2 = []
-word_list_1 = ["apologise", "crocodile", "education", "abounding", "beginning", "christmas", "fireboard", "identical", "chocolate", "challenge", "important",
-             "consonant", "dangerous", "australia", "irregular", "knowledge", "macaronic", "pineapple", "secretary", "halloween", "alligator", "seventeen",
-             "different", "vegetable", "structure", "wonderful", "provoking", "crocodile", "abounding", "beginning", "brainless", "breathing", "september",
-             "imperfect", "xylophone", "integrity", "blessings", "charlotte", "afterlife", "everybody", "louisiana", "celebrity", "delicious", "attention",
-             "elocution", "difficult", "necessary", "recycling", "treatment", "billboard", "territory", "architect", "ecosystem", "twentieth", "caribbean",
-             "generator", "kamasutra", "amphibian", "addiction", "radiation", "innocence", "nightmare", "abundance", "direction", "reference", "Sunflower"] #Word Store
+with open('wordlist.json') as f:
+    word_list_1 = json.load(f)["words"]
 
 while True:
     if (restart == "y" or restart == "Y"):
