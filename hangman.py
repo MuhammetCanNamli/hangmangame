@@ -1,13 +1,16 @@
 import random
 import json
 
+
 def load_words_from_json(file_path):
     with open(file_path, 'r') as file:
         data = json.load(file)
     return data['words']
 
+
 def choose_word(word_list):
     return random.choice(word_list)
+
 
 def display_word(word, guessed_letters):
     display = ''
@@ -17,6 +20,7 @@ def display_word(word, guessed_letters):
         else:
             display += '-'
     return display
+
 
 def main():
     word_list = load_words_from_json('wordlist.json')
