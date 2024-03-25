@@ -21,7 +21,6 @@ def display_word(word, guessed_letters):
 def main():
     word_list = load_words_from_json('wordlist.json')
     word = choose_word(word_list)
-    print(word)
     guessed_letters = []
     incorrect_guesses = 0
     max_attempts = 6
@@ -55,6 +54,10 @@ def main():
                     break
                 else :
                     print("You guessed wrong. Keep trying.")
+            elif prdc == "N" or prdc == "n":
+                print("Okey.")
+            else:
+                print("You did not enter the expected answer! So I'll accept your answer as \"You don't wanna guess.\"")
         else:
             print("Incorrect!")
             incorrect_guesses += 1
