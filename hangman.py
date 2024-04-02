@@ -23,8 +23,24 @@ def display_word(word, guessed_letters):
 
 
 def main():
-    word_list = load_words_from_json('wordlist.json')
-    word = choose_word(word_list)
+    print("Select difficulty level")
+    print("-----------------------")
+    print("1. Easy")
+    print("2. Normal")
+    print("3. Hard")
+    print("-----------------------")
+    difficulty = input("Choose: ")
+
+    if difficulty == "1":
+        word_list = load_words_from_json('wordlist1.json')
+        word = choose_word(word_list)
+    elif difficulty == "2":
+        word_list = load_words_from_json('wordlist2.json')
+        word = choose_word(word_list)
+    elif difficulty == "3":
+        word_list = load_words_from_json('wordlist3.json')
+        word = choose_word(word_list)
+    
     guessed_letters = []
     incorrect_guesses = 0
     max_attempts = 6
